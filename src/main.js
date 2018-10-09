@@ -3,6 +3,9 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./registerServiceWorker";
+import request from "./utils/js/request";
+
+Vue.prototype.$http = request;
 
 Vue.config.productionTip = false;
 
