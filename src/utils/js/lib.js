@@ -9,7 +9,7 @@ const regexp = {
 };
 
 // Date对象转化成YYYY-MM-DD格式,addMonth获取给点日期指定月份后日期
-export const formatDate = (date, addMonth) => {
+const formatDate = (date, addMonth) => {
   if (date === null) return "";
   let d = new Date(date);
   if (addMonth) {
@@ -29,4 +29,3 @@ export const formatDate = (date, addMonth) => {
 
 export { regexp };
 export { formatDate };
-
