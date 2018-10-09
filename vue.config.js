@@ -1,5 +1,6 @@
 /* 配置文件 */
 const path = require("path");
+const Package = require("./package");
 
 module.exports = {
   baseUrl:
@@ -23,6 +24,7 @@ module.exports = {
     }
   },
   devServer: {
+    port: Package.port,
     proxy: {
       "/api": {
         target: "<url>",
