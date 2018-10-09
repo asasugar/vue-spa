@@ -25,6 +25,7 @@ module.exports = {
   },
   devServer: {
     port: Package.port,
+    open:true,
     proxy: {
       "/api": {
         target: "<url>",
