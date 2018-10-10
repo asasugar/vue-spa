@@ -32,5 +32,6 @@
     "sass-loader": "^7.0.1",
     "style-resources-loader": "^1.2.1",
     "vue-template-compiler": "^2.5.17"
-  }
+  },
+  "port": 8080
 }
