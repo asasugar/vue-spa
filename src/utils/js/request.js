@@ -1,5 +1,4 @@
 import axios from "axios";
-import qs from "qs";
 
 const BASE_PATH = "https://api.com/";
 axios.defaults.withCredentials = true;
@@ -14,7 +13,7 @@ const request = (
     method: type,
     url,
     [type === "get" ? "params" : "data"]:
-      type === "get" ? data : isFormData ? data : qs.stringify(data),
+      type === "get" ? data : isFormData ? data : formatData(data),
     headers: {
       "Content-Type": isFormData
         ? " multipart/form-data"
@@ -27,4 +26,16 @@ const request = (
   return axios(config);
 };
 
+function formatData(data) {
+  // Do whatever you want to transform the data
+  let ret = "";
+  for (let prop in data) {
+    if (data[prop] != null && data[prop] != undefined && data[prop] !== "") {
+      ret += `${ret ? "&" : ""}${encodeURIComponent(prop)}=${encodeURIComponent(
+        data[prop]
+      )}`;
+    }
+  }
+  return ret;
+}
 export default request;
