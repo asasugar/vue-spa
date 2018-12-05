@@ -52,11 +52,9 @@ function formatData(data) {
   // Do whatever you want to transform the data
   let ret = "";
   for (let prop in data) {
-    if (data[prop] != null && data[prop] != undefined && data[prop] !== "") {
-      ret += `${ret ? "&" : ""}${encodeURIComponent(prop)}=${encodeURIComponent(
-        data[prop]
-      )}`;
-    }
+    ret += `${ret ? "&" : ""}${encodeURIComponent(prop)}=${encodeURIComponent(
+      data[prop] === null ? "" : data[prop]
+    )}`;
   }
   return ret;
 }
