@@ -5,7 +5,11 @@ const regexp = {
   number: /^(?:-?\d+|-?\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/,
   isZipCode: /^[0-9]{6}$/,
   phone: /^((0\d{2,3}-\d{7,8})|(0\d{2,3}-\d{7,8}#\d{3,7})|(\d{7,8})|(\d{7,8}#\d{3,7})|((13[0-9]|14[5-9]|15[012356789]|166|17[0-8]|18[0-9]|19[8-9])[0-9]{8}))$/,
-  idCard: /^\d{15}(\d{2}[A-Za-z0-9])?$/
+  idCard: /^\d{15}(\d{2}[A-Za-z0-9])?$/,
+  isAccount: /^\w+$/, // 字母下划线数字
+  integer: /^([1-9]\d*|[0]{1,1})$/, // 0开头的正整数
+  isUppercaseLetter: /^[A-Z]+$/, // 大写字母
+  isUppercaseLetterAndNumber: /^[A-Z][A-Z0-9]*$/ // 大写字母开头，包含大写字母与数字
 };
 
 // Date对象转化成YYYY-MM-DD格式,addMonth获取给点日期指定月份后日期
@@ -27,5 +31,9 @@ const formatDate = (date, addMonth) => {
   return `${year}-${month}-${day}`;
 };
 
-export { regexp };
-export { formatDate };
+export {
+  regexp
+};
+export {
+  formatDate
+};
