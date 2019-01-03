@@ -1,10 +1,10 @@
 /* 配置文件 */
 const path = require("path");
 const Package = require("./package");
+const AutoDllWebpackPlugin = require('autodll-webpack-plugin');
 
 module.exports = {
-  baseUrl:
-    process.env.NODE_ENV === "production" ? "/production-sub-path/" : "/",
+  baseUrl: process.env.NODE_ENV === "production" ? "/production-sub-path/" : "/",
   outputDir: "dist",
   indexPath: "index.html",
   lintOnSave: false,
@@ -25,7 +25,7 @@ module.exports = {
   },
   devServer: {
     port: Package.port,
-    open:true,
+    open: true,
     proxy: {
       "/api": {
         target: "<url>",
@@ -42,10 +42,35 @@ module.exports = {
     }
   },
   chainWebpack: config => {
+    // loader
     const types = ["vue-modules", "vue", "normal-modules", "normal"];
     types.forEach(type =>
       addStyleResource(config.module.rule("scss").oneOf(type))
     );
+    // plugin
+    config
+      .plugin('html')
+      .tap(args => {
+        // 加入新的选项，保留原有的
+        args[0].inject = true
+        return args
+      })
+    config
+      .plugin('autoDll')
+      .use(AutoDllWebpackPlugin)
+      .tap(args => {
+        return [{
+          inject: true, // will inject the DLL bundle to index.html
+          debug: true,
+          path: './dll',
+          filename: '[name].[hash].js',
+          entry: {
+            vendor: [
+              'vue',
+            ]
+          }
+        }]
+      })
   }
 };
 
