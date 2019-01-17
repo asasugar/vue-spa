@@ -1,10 +1,13 @@
 /* 配置文件 */
 const path = require("path");
 const Package = require("./package");
-const AutoDllWebpackPlugin = require('autodll-webpack-plugin');
+const AutoDllWebpackPlugin = require("autodll-webpack-plugin");
+const ThreadLoader = require("thread-loader");
+const os = require('os');
+const isPord = process.env.NODE_ENV === "production";
 
 module.exports = {
-  baseUrl: process.env.NODE_ENV === "production" ? "/production-sub-path/" : "/",
+  baseUrl: isPord ? "/production-sub-path/" : "/",
   outputDir: "dist",
   indexPath: "index.html",
   lintOnSave: false,
@@ -35,7 +38,7 @@ module.exports = {
     }
   },
   configureWebpack: config => {
-    if (process.env.NODE_ENV === "production") {
+    if (isPord) {
       // 为生产环境修改配置...
     } else {
       // 为开发环境修改配置...
@@ -47,30 +50,44 @@ module.exports = {
     types.forEach(type =>
       addStyleResource(config.module.rule("scss").oneOf(type))
     );
-    // plugin
-    config
-      .plugin('html')
-      .tap(args => {
-        // 加入新的选项，保留原有的
-        args[0].inject = true
-        return args
+    // thread-loader
+    config.module
+      .rule("thread")
+      .test(/\.js$/)
+      .exclude.add(/node_modules/)
+      .end()
+      .use(ThreadLoader)
+      .loader("thread-loader")
+      .options({
+        workers: os.cpus().length,
+        workerParallelJobs: 50,
+        workerNodeArgs: ["--max-old-space-size=1024"],
+        poolRespawn: false,
+        poolTimeout: 2000,
+        poolParallelJobs: 50,
+        name: "my-pool"
       })
+      .end();
+    // plugin
+    config.plugin("html").tap(args => {
+      // 加入新的选项，保留原有的
+      args[0].inject = true;
+      return args;
+    });
     config
-      .plugin('autoDll')
+      .plugin("autoDll")
       .use(AutoDllWebpackPlugin)
       .tap(args => {
         return [{
-          inject: true, // will inject the DLL bundle to index.html
+          inject: true,
           debug: true,
-          path: './dll',
-          filename: '[name].[hash].js',
+          path: "./dll",
+          filename: "[name].[hash].js",
           entry: {
-            vendor: [
-              'vue',
-            ]
+            vendor: ["vue", "vuex", "vue-router", "axios"]
           }
-        }]
-      })
+        }]; // will inject the DLL bundle to index.html
+      });
   }
 };
 
