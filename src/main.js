@@ -6,6 +6,7 @@ import request from "./utils/js/request";
 import filter from '@/filter'; // 全局过滤器
 import directive from '@/directive'; // 自定义指令
 import mixin from '@/mixin'; // 全局mixin
+import 'amfe-flexible';
 
 
 Vue.use(filter);

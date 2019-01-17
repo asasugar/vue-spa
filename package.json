@@ -10,6 +10,7 @@
     "test:e2e": "vue-cli-service test:e2e"
   },
   "dependencies": {
+    "amfe-flexible": "^2.2.1",
     "axios": "^0.18.0",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
@@ -27,6 +28,7 @@
     "babel-loader": "^8.0.4",
     "chai": "^4.1.2",
     "node-sass": "^4.9.0",
+    "postcss-pxtorem": "^4.0.1",
     "sass-loader": "^7.0.1",
     "style-resources-loader": "^1.2.1",
     "thread-loader": "^2.1.1",

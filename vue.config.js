@@ -4,6 +4,10 @@ const Package = require("./package");
 const AutoDllWebpackPlugin = require("autodll-webpack-plugin");
 const ThreadLoader = require("thread-loader");
 const os = require('os');
+const autoprefixer = require('autoprefixer');
+const pxtorem = require('postcss-pxtorem');
+
+
 const isPord = process.env.NODE_ENV === "production";
 
 module.exports = {
@@ -23,6 +27,13 @@ module.exports = {
       },
       postcss: {
         // 这里的选项会传递给 postcss-loader
+        plugins: [
+          autoprefixer(),
+          pxtorem({
+            rootValue: 75,
+            propList: ['*', '!font*', '!border*']
+          })
+        ]
       }
     }
   },
