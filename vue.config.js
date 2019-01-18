@@ -4,9 +4,9 @@ const Package = require("./package");
 const AutoDllWebpackPlugin = require("autodll-webpack-plugin");
 const ThreadLoader = require("thread-loader");
 const os = require("os");
-const isPord = process.env.NODE_ENV === "production";
 const TerserPlugin = require("terser-webpack-plugin");
 
+const isPord = process.env.NODE_ENV === "production";
 module.exports = {
   baseUrl: isPord ? "/production-sub-path/" : "/",
   outputDir: "dist",
