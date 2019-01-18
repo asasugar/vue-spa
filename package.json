@@ -31,6 +31,7 @@
     "postcss-pxtorem": "^4.0.1",
     "sass-loader": "^7.0.1",
     "style-resources-loader": "^1.2.1",
+    "terser-webpack-plugin": "^1.2.1",
     "thread-loader": "^2.1.1",
     "vue-template-compiler": "^2.5.17"
   },

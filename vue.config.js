@@ -3,10 +3,10 @@ const path = require("path");
 const Package = require("./package");
 const AutoDllWebpackPlugin = require("autodll-webpack-plugin");
 const ThreadLoader = require("thread-loader");
-const os = require('os');
-const autoprefixer = require('autoprefixer');
-const pxtorem = require('postcss-pxtorem');
-
+const os = require("os");
+const autoprefixer = require("autoprefixer");
+const pxtorem = require("postcss-pxtorem");
+const TerserPlugin = require("terser-webpack-plugin");
 
 const isPord = process.env.NODE_ENV === "production";
 
@@ -31,7 +31,7 @@ module.exports = {
           autoprefixer(),
           pxtorem({
             rootValue: 75,
-            propList: ['*', '!font*', '!border*']
+            propList: ["*", "!font*", "!border*"]
           })
         ]
       }
@@ -51,6 +51,17 @@ module.exports = {
   configureWebpack: config => {
     if (isPord) {
       // 为生产环境修改配置...
+      config.optimization = {
+        minimizer: [
+          new TerserPlugin({
+            terserOptions: {
+              compress: {
+                drop_console: true
+              }
+            }
+          })
+        ]
+      };
     } else {
       // 为开发环境修改配置...
     }
@@ -89,15 +100,17 @@ module.exports = {
       .plugin("autoDll")
       .use(AutoDllWebpackPlugin)
       .tap(args => {
-        return [{
-          inject: true,
-          debug: true,
-          path: "./dll",
-          filename: "[name].[hash].js",
-          entry: {
-            vendor: ["vue", "vuex", "vue-router", "axios"]
+        return [
+          {
+            inject: true,
+            debug: true,
+            path: "./dll",
+            filename: "[name].[hash].js",
+            entry: {
+              vendor: ["vue", "vuex", "vue-router", "axios"]
+            }
           }
-        }]; // will inject the DLL bundle to index.html
+        ]; // will inject the DLL bundle to index.html
       });
   }
 };
