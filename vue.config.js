@@ -8,7 +8,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 
 const isPord = process.env.NODE_ENV === "production";
 module.exports = {
-  baseUrl: isPord ? "/production-sub-path/" : "/",
+  publicPath: isPord ? "/production-sub-path/" : "/",
   outputDir: "dist",
   indexPath: "index.html",
   lintOnSave: false,
@@ -60,7 +60,7 @@ module.exports = {
     // loader
     const types = ["vue-modules", "vue", "normal-modules", "normal"];
     types.forEach(type =>
-      addStyleResource(config.module.rule("scss").oneOf(type))
+      addStyleResource(config.module.rule("less").oneOf(type))
     );
     // thread-loader
     config.module
@@ -90,17 +90,15 @@ module.exports = {
       .plugin("autoDll")
       .use(AutoDllWebpackPlugin)
       .tap(args => {
-        return [
-          {
-            inject: true,
-            debug: true,
-            path: "./dll",
-            filename: "[name].[hash].js",
-            entry: {
-              vendor: ["vue", "vuex", "vue-router", "axios"]
-            }
+        return [{
+          inject: true,
+          debug: true,
+          path: "./dll",
+          filename: "[name].[hash].js",
+          entry: {
+            vendor: ["vue", "vuex", "vue-router", "axios"]
           }
-        ]; // will inject the DLL bundle to index.html
+        }]; // will inject the DLL bundle to index.html
       });
   }
 };
@@ -110,6 +108,6 @@ function addStyleResource(rule) {
     .use("style-resource")
     .loader("style-resources-loader")
     .options({
-      patterns: [path.resolve(__dirname, "./src/utils/css/CONST.scss")]
+      patterns: [path.resolve(__dirname, "./src/utils/css/CONST.less")]
     });
 }
