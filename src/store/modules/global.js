@@ -1,17 +1,23 @@
 const global = {
-  state: {
-    test: ""
-  },
-  mutations: {
-    SET_TEST(state, val) {
-      state.test = val;
-    }
-  },
-  actions: {
-    setTest({ commit }, val) {
-      commit("SET_TEST", val);
-    }
-  }
+	state: {
+		count: 0
+	},
+	mutations: {
+		INCREMENT(state) {
+			state.count++;
+		},
+		DECREMENT(state) {
+			state.count--
+		}
+	},
+	actions: {
+		asyncIncrement({ commit }) {
+			commit('INCREMENT');
+		},
+		asyncDecrement({ commit }) {
+			commit('DECREMENT');
+		}
+	}
 };
 
 export default global;
