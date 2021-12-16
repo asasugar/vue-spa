@@ -7,7 +7,8 @@
 ```
 npm i -g yarn
 
-yarn config set registry http://registry.npm.taobao.org/
+yarn config set registry http://registry.npm.taobao.org/ --global
+yarn config set disturl https://npm.taobao.org/dist --global
 ```
 
 #### 安装依赖
