@@ -3,18 +3,19 @@
  * @Author: Xiongjie.Xue(xiongjie.xue@luckincoffee.com)
  * @Date: 2021-06-21 18:34:56
  * @LastEditors: Xiongjie.Xue(xiongjie.xue@luckincoffee.com)
- * @LastEditTime: 2021-06-22 17:49:48
+ * @LastEditTime: 2021-12-24 09:41:46
  */
 
 // 使用方法
 // import { getCurrentInstance } from 'vue';
-// const { proxy } = getCurrentInstance();
+// const { proxy } = getCurrentInstance();=
+// 伪代码
 // methods = {
 //   middleViewData: proxy.$http.get("/api/simpleWeather/query", { data: { city: 481, key: "55333d85ca99360f79d67b452b51e277" } }), // 正常请求
-//   cancelReq: proxy.$http.get('/api/simpleWeather/query', { data: { city: 481, key: "55333d85ca99360f79d67b452b51e277" }, cancelRequest: true }), // 测试取消请求
-//   reqAgainSend: proxy.$http.get('/api/simpleWeather/query', { data: { city: 481, key: "55333d85ca99360f79d67b452b51e277" }, retry: 3, retryDelay: 1000 }), // 测试请求重发，除了原请求外还会重发3次
-//   cacheEquList: proxy.$http.get('/api/simpleWeather/query', { data: { city: 481, key: "55333d85ca99360f79d67b452b51e277" }, cache: true, setExpireTime: 30000 }), // 测试缓存请求带参数：setExpireTime 为缓存有效时间ms
-//   cacheEquListParams: proxy.$http.get('/api/simpleWeather/query', { data: { city: 481, key: "55333d85ca99360f79d67b452b51e277" }, cache: true }) // 测试缓存请求参数值不一样
+//   cancelReq: proxy.$http.get('/api/simpleWeather/query', { data: { city: 481, key: "55333d85ca99360f79d67b452b51e277" }, cancelRequest: true }), // 取消请求
+//   reqAgainSend: proxy.$http.get('/api/simpleWeather/query', { data: { city: 481, key: "55333d85ca99360f79d67b452b51e277" }, retry: 3, retryDelay: 1000 }), // 请求失败重发，除了原请求外还会重发3次
+//   cacheEquListParams: proxy.$http.get('/api/simpleWeather/query', { data: { city: 481, key: "55333d85ca99360f79d67b452b51e277" }, cache: true }) // 缓存请求，参数值一样则取消请求
+//   cacheEquList: proxy.$http.get('/api/simpleWeather/query', { data: { city: 481, key: "55333d85ca99360f79d67b452b51e277" }, cache: true, setExpireTime: 30000 }), // 缓存请求，setExpireTime 为缓存有效时间ms
 // },
 import Axios from 'axios';
 // import { clearToken, getToken } from '../cookiesStorage.js'; 
