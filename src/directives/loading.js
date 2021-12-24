@@ -3,7 +3,7 @@
  * @Author: Xiongjie.Xue(xiongjie.xue@luckincoffee.com)
  * @Date: 2021-06-23 10:24:44
  * @LastEditors: Xiongjie.Xue(xiongjie.xue@luckincoffee.com)
- * @LastEditTime: 2021-08-31 17:59:37
+ * @LastEditTime: 2021-12-24 09:19:39
  */
 import { createLoading } from '@/components/Loading';
 
@@ -23,7 +23,6 @@ const loadingDirective = {
       },
       fullscreen ? document.body : el
     );
-    console.log(111, fullscreen)
     el.instance = instance;
   },
   updated(el, binding) {
